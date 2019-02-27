@@ -8,7 +8,7 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Image, Text, View, SafeAreaView, TouchableOpacity} from 'react-native';
+import {Platform, StyleSheet, Image, Text, View, SafeAreaView, TouchableOpacity, TextInput} from 'react-native';
 
 const instructions = Platform.select({
     ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -22,36 +22,46 @@ export default class LoginScreen extends Component<Props> {
     static navigationOptions = {
         header: null
     };
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            user: "", pass: ""
+        }
+    }
+
     render() {
         return (
             <SafeAreaView style={{flexDirection: "column", flex: 1, backgroundColor: "red"}}>
                 <Image
-                    source={require("../images/logo.png")}
+                    source={require("../images/bglogin2.jpg")}
                     style={{position: "absolute", top: 0, bottom: 0, left: 0, right: 0}}
                 />
-                <View style={{flex: 1, backgroundColor: "rgba(52, 52, 52, 0.8)"}}>
-                    <View style={{flex: 1}}></View>
-                    <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
-                        <Image source={require("../images/convoito.png")} width={40} height={40}/>
+                <View style={{flexDirection: "column", flex: 1}}>
+
+                </View>
+                <View style={{flexDirection: "column", flex: 2}}>
+                    <View style={{flexDirection: "column", flex: 1}}>
+                        <Text>AAAAAA</Text>
+                        <TextInput
+                            onChangeText={(user) => this.setState({user})}
+                            value={this.state.user}
+                            placeholder={"Nhap user"}></TextInput>
+                        <Text>AAAAAA</Text>
+                        <TextInput
+                            onChangeText={(user) => this.setState({user})}
+                            value={this.state.user}
+                            placeholder={"Nhap pass"}></TextInput>
+                        <Text style={{alignSelf: "right"}}>Quen pass</Text>
                     </View>
-                    <View style={{flex: 2, justifyContent: "center", alignItems: "center"}}>
-                        <TouchableOpacity style={{
-                            width: "90%", height: 48,
-                            justifyContent: "center", alignItems: "center",
-                            borderWidth: 0.8, borderColor: "white", borderRadius: 48 / 2
-                        }}>
-                            <Text style={{fontSize: 19, color: "white"}}>Login</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={{
-                            width: "90%", height: 48,
-                            marginTop: 16,
-                            justifyContent: "center", alignItems: "center",
-                            borderWidth: 0.8, borderColor: "white", borderRadius: 48 / 2, backgroundColor: "white"
-                        }}>
-                            <Text style={{fontSize: 19, color: "pink"}}>LOGIN</Text>
-                        </TouchableOpacity>
+                    <View style={{flexDirection: "column", flex: 1}}>
+
+                    </View>
+                    <View style={{flexDirection: "column", flex: 0.5}}>
+
                     </View>
                 </View>
+
             </SafeAreaView>
         );
     }
