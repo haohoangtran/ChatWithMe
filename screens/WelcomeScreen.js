@@ -34,7 +34,7 @@ export default class WelcomeScreen extends Component<Props> {
         return (
             <SafeAreaView style={{flexDirection: "column", flex: 1, backgroundColor: "red"}}>
                 <Image
-                    source={require("../images/bglogin.jpg")}
+                    source={require("../images/logo.png")}
                     style={{position: "absolute", top: 0, bottom: 0, left: 0, right: 0}}
                 />
                 <View style={{flex: 1, backgroundColor: "rgba(52, 52, 52, 0.8)"}}>
