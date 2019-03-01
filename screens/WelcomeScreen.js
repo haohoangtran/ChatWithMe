@@ -32,7 +32,9 @@ export default class WelcomeScreen extends Component<Props> {
                     </View>
                     <View style={{flex: 2, justifyContent: "center", alignItems: "center"}}>
                         <TouchableOpacity
-                            //onPress={()=>this.setState({a:this.state.a+1})}
+                            onPress={() => {
+                                this.props.navigation.navigate('SignUp')
+                            }}
                             style={{
                             width: "90%", height: 48,
                             justifyContent: "center", alignItems: "center",
