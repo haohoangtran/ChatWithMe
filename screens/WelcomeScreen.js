@@ -10,32 +10,35 @@ export default class WelcomeScreen extends Component<Props> {
 
     constructor(props) {
         super(props);
-        this.state = {
-            a: 1
-        }
+        // this.state = {
+        //     a: 1
+        // }
     }
 
     render() {
         return (
             <SafeAreaView style={{flexDirection: "column", flex: 1, backgroundColor: "red"}}>
                 <Image
-                    source={require("../images/bglogin.jpg")}
+                    source={require("../images/bglogin2.jpg")}
                     style={{position: "absolute", top: 0, bottom: 0, left: 0, right: 0}}
                 />
-                <View style={{flex: 1, backgroundColor: "rgba(52, 52, 52, 0.8)"}}>
+                <View style={{flex: 1, backgroundColor: "rgba(173,20,87, 0.5)"}}>
                     <View style={{flex: 1}}></View>
                     <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
-                        <Image source={require("../images/convoito.png")} width={40} height={40}/>
+                        <Image source={require("../images/ic_logo_100dp.png")} width={100} height={100}/>
+                    </View>
+                    <View style={{flex: 0.5, justifyContent: "center", alignItems: "center"}}>
+                        <Text style={{fontSize: 24, color: "#FAFAFA",fontFamily: "Lucida Console"}}>CHAT WITH ME</Text>
                     </View>
                     <View style={{flex: 2, justifyContent: "center", alignItems: "center"}}>
                         <TouchableOpacity
-                            onPress={()=>this.setState({a:this.state.a+1})}
+                            //onPress={()=>this.setState({a:this.state.a+1})}
                             style={{
                             width: "90%", height: 48,
                             justifyContent: "center", alignItems: "center",
                             borderWidth: 0.8, borderColor: "white", borderRadius: 48 / 2
                         }}>
-                            <Text style={{fontSize: 19, color: "white"}}>SIGN UP {this.state.a}</Text>
+                            <Text style={{fontSize: 19, color: "white",fontWeight: "bold"}}>SIGN UP</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             onPress={() => {
@@ -47,7 +50,7 @@ export default class WelcomeScreen extends Component<Props> {
                                 justifyContent: "center", alignItems: "center",
                                 borderWidth: 0.8, borderColor: "white", borderRadius: 48 / 2, backgroundColor: "white"
                             }}>
-                            <Text style={{fontSize: 19, color: "pink"}}>LOGIN</Text>
+                            <Text style={{fontSize: 19, color: "#AD1457",fontWeight: "bold"}}>LOGIN</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

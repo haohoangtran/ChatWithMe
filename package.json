@@ -9,8 +9,10 @@
   "dependencies": {
     "react": "16.6.3",
     "react-native": "0.58.5",
+    "react-native-cli": "^2.0.1",
     "react-native-flash-message": "^0.1.10",
     "react-native-gesture-handler": "^1.0.16",
+    "react-native-material-design": "^0.3.7",
     "react-navigation": "^3.3.2"
   },
   "devDependencies": {

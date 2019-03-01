@@ -12,6 +12,8 @@ const AppNavigator = createStackNavigator({
     Login: {
         screen: LoginScreen
     },
+
+
 });
 
 export default createAppContainer(AppNavigator);
