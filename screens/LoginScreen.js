@@ -8,14 +8,19 @@
  */
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Image, Text, View, SafeAreaView, TouchableOpacity, TextInput} from 'react-native';
-
-const instructions = Platform.select({
-    ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-    android:
-        'Double tap R on your keyboard to reload,\n' +
-        'Shake or press menu button for dev menu',
-});
+import {Platform, StyleSheet, Image, Text, View, SafeAreaView, TouchableOpacity, TextInput, Alert} from 'react-native';
+import {
+    BallIndicator,
+    BarIndicator,
+    DotIndicator,
+    MaterialIndicator,
+    PacmanIndicator,
+    PulseIndicator,
+    SkypeIndicator,
+    UIActivityIndicator,
+    WaveIndicator,
+} from 'react-native-indicators';
+import * as Network from "../networks"
 
 type Props = {};
 export default class LoginScreen extends Component<Props> {
@@ -26,16 +31,35 @@ export default class LoginScreen extends Component<Props> {
     constructor(props) {
         super(props);
         this.state = {
-            user: "", pass: ""
+            user: "", pass: "", onLoginProcess: false
+        }
+    }
+
+    renderIndicator() {
+        if (this.state.onLoginProcess) {
+            return (
+                <View style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    justifyContent: "center",
+                    alignItems: "center",
+                    backgroundColor: "rgba(227, 216, 220, 0.7)",
+                    flexDirection: "column"
+                }}>
+                    <PacmanIndicator color='white'/>
+                </View>)
         }
     }
 
     render() {
         return (
-            <SafeAreaView style={{flexDirection: "column", flex: 1, backgroundColor: "red"}}>
+            <SafeAreaView style={{flexDirection: "column", flex: 1}}>
                 <Image
                     source={require("../images/bglogin2.jpg")}
-                    style={{position: "absolute", top: 0, bottom: 0, left: 0, right: 0}}
+                    style={{position: "absolute", width: '100%', height: "100%", resizeMode: 'cover'}}
                 />
                 <View style={{flex: 1, backgroundColor: "rgba(207, 216, 220, 0.7)"}}>
                     <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
@@ -49,21 +73,39 @@ export default class LoginScreen extends Component<Props> {
                                 underlineColorAndroid="#a3a0a7"
                                 onChangeText={(user) => this.setState({user})}
                                 value={this.state.user}
-                                placeholder={"Nhập tài khoản"}></TextInput>
+                                placeholder={"Nhập tài khoản"}/>
                             <Text style={{fontSize: 16, color: '#AD1457'}}>MẬT KHẨU</Text>
                             <TextInput
                                 style={{fontSize: 16}}
                                 underlineColorAndroid="#a3a0a7"
                                 onChangeText={(pass) => this.setState({pass})}
                                 value={this.state.pass}
-                                placeholder={"Nhập mật khẩu"}></TextInput>
+                                placeholder={"Nhập mật khẩu"}/>
                             <Text style={{textAlign: "right", color: "#FAFAFA", textDecorationLine: 'underline'}}>Quên
                                 mật khẩu</Text>
                         </View>
                         <View style={{flexDirection: "column", flex: 1}}>
                             <View style={{flexDirection: "column", flex: 0.3}}>
                                 <TouchableOpacity
-                                    //onPress={()=>this.setState({a:this.state.a+1})}
+                                    onPress={() => {
+                                        this.setState({onLoginProcess: true});
+                                        Network.post('/user/login', {
+                                            username: this.state.user,
+                                            password: this.state.pass,
+                                            token: "hihi"//todo: dm doi token
+                                        }, {}, (err, data) => {
+                                            this.setState({onLoginProcess: false});
+                                            if (err) {
+                                                Alert.alert("Lỗi", "Có lỗi xảy ra, kiểm tra kết nối mạng " + err)
+                                            } else {
+                                                if (data.status) {
+                                                    this.props.navigation.navigate('Home')
+                                                } else {
+                                                    Alert.alert("Thông báo", data.message);
+                                                }
+                                            }
+                                        })
+                                    }}
                                     style={{
                                         width: "100%", height: 42,
                                         justifyContent: "center",
@@ -71,7 +113,7 @@ export default class LoginScreen extends Component<Props> {
                                         borderWidth: 0.8, borderColor: "white", borderRadius: 42 / 2,
                                         backgroundColor: "#FAFAFA",
                                     }}>
-                                    <Text style={{fontSize: 16, color: "#AD1457",fontWeight: "bold"}}>LOGIN</Text>
+                                    <Text style={{fontSize: 16, color: "#AD1457", fontWeight: "bold"}}>LOGIN</Text>
                                 </TouchableOpacity>
                             </View>
                             <View style={{flexDirection: 'row', flex: 0.25}}>
@@ -88,10 +130,8 @@ export default class LoginScreen extends Component<Props> {
                                 <View style={{backgroundColor: '#9E9E9E', height: 1.25, flex: 1, alignSelf: 'center'}}/>
                             </View>
                             <View style={{flexDirection: 'row', flex: 0.3}}>
-                                <View style={{flex: 1,paddingRight: 6}}>
+                                <View style={{flex: 1, paddingRight: 6}}>
                                     <TouchableOpacity
-                                        //<Image source={require("../images/ic_fb_18dp.png")}/>
-                                        //onPress={()=>this.setState({a:this.state.a+1})}
                                         style={{
 
                                             width: "100%", height: 42,
@@ -104,13 +144,12 @@ export default class LoginScreen extends Component<Props> {
                                             source={require("../images/ic_fb_24dp.png")}
                                             style={{position: "relative", left: 0}}
                                         />
-                                        <Text style={{fontSize: 16, color: "#E9EBEE",fontWeight: "bold"}}>FACEBOOK</Text>
+                                        <Text
+                                            style={{fontSize: 16, color: "#E9EBEE", fontWeight: "bold"}}>FACEBOOK</Text>
                                     </TouchableOpacity>
                                 </View>
-                                <View style={{flex: 1, paddingLeft:6}}>
+                                <View style={{flex: 1, paddingLeft: 6}}>
                                     <TouchableOpacity
-                                        //<Image source={require("../images/ic_fb_18dp.png")}/>
-                                        //onPress={()=>this.setState({a:this.state.a+1})}
                                         style={{
                                             width: "100%", height: 42,
                                             justifyContent: "center",
@@ -122,7 +161,7 @@ export default class LoginScreen extends Component<Props> {
                                             source={require("../images/ic_google_24dp.png")}
                                             style={{position: "relative", left: 0}}
                                         />
-                                        <Text style={{fontSize: 16, color: "#E9EBEE",fontWeight: "bold"}}>GOOGLE</Text>
+                                        <Text style={{fontSize: 16, color: "#E9EBEE", fontWeight: "bold"}}>GOOGLE</Text>
                                     </TouchableOpacity>
                                 </View>
                             </View>
@@ -132,6 +171,7 @@ export default class LoginScreen extends Component<Props> {
                         </View>
                     </View>
                 </View>
+                {this.renderIndicator()}
             </SafeAreaView>
         );
     }

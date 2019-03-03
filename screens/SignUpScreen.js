@@ -20,7 +20,7 @@ export default class SignUpScreen extends Component<Props> {
             <SafeAreaView style={{flexDirection: "column", flex: 1, backgroundColor: "red"}}>
                 <Image
                     source={require("../images/bglogin2.jpg")}
-                    style={{position: "absolute", top: 0, bottom: 0, left: 0, right: 0}}
+                    style={{position: "absolute", width: '100%', height: "100%", resizeMode: 'cover'}}
                 />
                 <View style={{flex: 1,backgroundColor: "rgba(207, 216, 220, 0.7)"}}>
                     <View style={{flex: 1, justifyContent: "center", alignItems: "center",paddingTop: 12}}>

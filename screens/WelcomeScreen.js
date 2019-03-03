@@ -10,17 +10,14 @@ export default class WelcomeScreen extends Component<Props> {
 
     constructor(props) {
         super(props);
-        // this.state = {
-        //     a: 1
-        // }
     }
 
     render() {
         return (
-            <SafeAreaView style={{flexDirection: "column", flex: 1, backgroundColor: "red"}}>
+            <SafeAreaView style={{flexDirection: "column", flex: 1}}>
                 <Image
                     source={require("../images/bglogin2.jpg")}
-                    style={{position: "absolute", top: 0, bottom: 0, left: 0, right: 0}}
+                    style={{position: "absolute", width: '100%', height: "100%", resizeMode: 'cover'}}
                 />
                 <View style={{flex: 1, backgroundColor: "rgba(173,20,87, 0.5)"}}>
                     <View style={{flex: 1}}></View>
