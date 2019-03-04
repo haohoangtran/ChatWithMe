@@ -20,7 +20,11 @@ import {
     UIActivityIndicator,
     WaveIndicator,
 } from 'react-native-indicators';
+import firebase from 'react-native-firebase';
+import App from '../App';
 import * as Network from "../networks"
+
+import {savePrefData, getPrefData} from "../sharePref";
 
 type Props = {};
 export default class LoginScreen extends Component<Props> {
@@ -52,6 +56,27 @@ export default class LoginScreen extends Component<Props> {
                     <PacmanIndicator color='white'/>
                 </View>)
         }
+    }
+
+    async login(username, password) {
+        const fcmToken = await firebase.messaging().getToken();
+        this.setState({onLoginProcess: true});
+        Network.post('/user/login', {
+            username, password, token: fcmToken
+        }, {}, (err, data) => {
+            this.setState({onLoginProcess: false});
+            if (err) {
+                Alert.alert("Lỗi", "Có lỗi xảy ra, kiểm tra kết nối mạng " + err)
+            } else {
+                if (data.status) {
+                    Network.setUserToken(data.token);
+                    this.props.navigation.navigate('Home')
+                } else {
+                    Alert.alert("Thông báo", data.message);
+                }
+            }
+        })
+
     }
 
     render() {
@@ -87,25 +112,7 @@ export default class LoginScreen extends Component<Props> {
                         <View style={{flexDirection: "column", flex: 1}}>
                             <View style={{flexDirection: "column", flex: 0.3}}>
                                 <TouchableOpacity
-                                    onPress={() => {
-                                        this.setState({onLoginProcess: true});
-                                        Network.post('/user/login', {
-                                            username: this.state.user,
-                                            password: this.state.pass,
-                                            token: "hihi"//todo: dm doi token
-                                        }, {}, (err, data) => {
-                                            this.setState({onLoginProcess: false});
-                                            if (err) {
-                                                Alert.alert("Lỗi", "Có lỗi xảy ra, kiểm tra kết nối mạng " + err)
-                                            } else {
-                                                if (data.status) {
-                                                    this.props.navigation.navigate('Home')
-                                                } else {
-                                                    Alert.alert("Thông báo", data.message);
-                                                }
-                                            }
-                                        })
-                                    }}
+                                    onPress={() => this.login(this.state.user, this.state.pass)}
                                     style={{
                                         width: "100%", height: 42,
                                         justifyContent: "center",
@@ -133,7 +140,6 @@ export default class LoginScreen extends Component<Props> {
                                 <View style={{flex: 1, paddingRight: 6}}>
                                     <TouchableOpacity
                                         style={{
-
                                             width: "100%", height: 42,
                                             justifyContent: "center",
                                             alignItems: "center",

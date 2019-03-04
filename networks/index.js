@@ -1,6 +1,10 @@
 const BASE_URL = "http://chatwithmee.herokuapp.com/api/";
 let USER_TOKEN = "";
 
+function setUserToken(token) {
+    USER_TOKEN = token;
+}
+
 function post(sublink, body, header, callback) {
     fetch(`${BASE_URL}${sublink}`, {
         method: 'POST',
@@ -38,4 +42,4 @@ function get(sublink, header, callback) {
         });
 }
 
-export {post, get}
+export {post, get, setUserToken}
