@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Image, Text, View, SafeAreaView, TouchableOpacity, TextInput} from 'react-native';
+import {Platform, StyleSheet, Image, Text, View, SafeAreaView, TouchableOpacity, TextInput, Alert} from 'react-native';
+import * as Network from "../networks";
 
 
 type Props = {};
@@ -11,7 +12,7 @@ export default class SignUpScreen extends Component<Props> {
     constructor(props) {
         super(props);
         this.state = {
-            user: "", pass: "",email:"",phone:"",name:""
+            user: "", pass: "",email:"",phone:"",name:"", onLoginProcess: true,
         }
     }
 
@@ -65,7 +66,24 @@ export default class SignUpScreen extends Component<Props> {
                     </View>
                     <View style={{flex: 1, justifyContent: "center", alignItems: "center",marginLeft: 24, marginRight: 24,marginTop:24}}>
                         <TouchableOpacity
-                            //onPress={()=>this.setState({a:this.state.a+1})}
+                            onPress={() => {
+                                Network.post('/user/register', {
+                                    username: this.state.user,
+                                    password: this.state.pass,
+                                }, {}, (err, data) => {
+                                    this.setState({onLoginProcess: false});
+                                    if (err) {
+                                        Alert.alert("Lỗi",  err)
+                                    } else {
+                                        if (data.status) {
+                                            Alert.alert("hi",data.status)
+                                            //this.props.navigation.navigate('Login')
+                                        } else {
+                                            Alert.alert("Thông báo", "Tạo tài khoản thành công");
+                                        }
+                                    }
+                                })
+                            }}
                             style={{
                                 width: "100%", height: 42,
                                 justifyContent: "center",
