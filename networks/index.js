@@ -1,4 +1,6 @@
 const BASE_URL = "http://chatwithmee.herokuapp.com/api/";
+// const BASE_URL = "http://172.30.4.17:6969/api/";
+// const BASE_URL = "http://192.168.43.194:6969/api/";
 let USER_TOKEN = "";
 
 function setUserToken(token) {
@@ -17,9 +19,13 @@ function post(sublink, body, header, callback) {
         body: JSON.stringify(body),
     }).then((response) => response.json())
         .then((responseJson) => {
+
+            console.log("res", responseJson)
             callback(null, responseJson)
         })
         .catch((error) => {
+
+            console.log("err", error)
             callback(error);
         });
 }
@@ -35,9 +41,11 @@ function get(sublink, header, callback) {
         },
     }).then((response) => response.json())
         .then((responseJson) => {
+            console.log("res", responseJson)
             callback(null, responseJson)
         })
         .catch((error) => {
+            console.log("err", error)
             callback(error);
         });
 }

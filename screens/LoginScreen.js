@@ -64,6 +64,7 @@ export default class LoginScreen extends Component<Props> {
         Network.post('/user/login', {
             username, password, token: fcmToken
         }, {}, (err, data) => {
+            console.log(data)
             this.setState({onLoginProcess: false});
             if (err) {
                 Alert.alert("Lỗi", "Có lỗi xảy ra, kiểm tra kết nối mạng " + err)
