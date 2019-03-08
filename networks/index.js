@@ -49,5 +49,4 @@ function get(sublink, header, callback) {
             callback(error);
         });
 }
-
 export {post, get, setUserToken}

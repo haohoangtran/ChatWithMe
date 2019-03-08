@@ -150,11 +150,12 @@ export default class HomeScreen extends Component<Props> {
                 <View style={{
                     width: "100%",
                     height: "10%",
-                    backgroundColor: "red",
                     justifyContent: "center",
-                    alignItems: "center"
+                    alignItems: "center",
+                    borderBottomWidth: 1,
+                    borderBottomColor: "#38ff00"
                 }}>
-                    <Text>Chat với tao hihi</Text>
+                    <Text style={{fontSize: 18}}>Người lạ</Text>
                 </View>
                 <GiftedChat
                     messages={this.state.messages}

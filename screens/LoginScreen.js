@@ -71,6 +71,8 @@ export default class LoginScreen extends Component<Props> {
             } else {
                 if (data.status) {
                     Network.setUserToken(data.token);
+                    savePrefData("user", username)
+                    savePrefData("pass", password)
                     this.props.navigation.navigate('Home')
                 } else {
                     Alert.alert("Thông báo", data.message);
@@ -106,6 +108,7 @@ export default class LoginScreen extends Component<Props> {
                                 underlineColorAndroid="#a3a0a7"
                                 onChangeText={(pass) => this.setState({pass})}
                                 value={this.state.pass}
+                                secureTextEntry={true}
                                 placeholder={"Nhập mật khẩu"}/>
                             <Text style={{textAlign: "right", color: "#FAFAFA", textDecorationLine: 'underline'}}>Quên
                                 mật khẩu</Text>
